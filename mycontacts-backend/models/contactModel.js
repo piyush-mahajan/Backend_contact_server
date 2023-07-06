@@ -2,6 +2,12 @@ const mongoose = require("mongoose");
 
 const contactSchema = mongoose.Schema(
   {
+    user_id: {
+      // this refer to the other user schema and user id for it means user can create its contact and that contact is associate with that user only
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     name: {
       type: String,
       required: [true, "Please provide a name"],
@@ -10,7 +16,6 @@ const contactSchema = mongoose.Schema(
     email: {
       type: String,
       required: [true, "Please provide a email"],
-      unique: true,
       match: [
         /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
         "Please provide a valid email",
@@ -18,6 +23,7 @@ const contactSchema = mongoose.Schema(
     },
     phone: {
       type: String,
+      required: [true, "please add the contact phone number"],
       maxlength: [20, "Phone number can not be longer than 20 characters"],
     },
   },
